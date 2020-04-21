@@ -18,10 +18,14 @@ Ok so you can't rid of the startup lags, then try this mod as a last resort.
 ## Settings :
 
 What are those ?
-![InGameSettings](https://github.com/monkeymanboy/BeatSaberTrashMan/blob/master/AutoPauseStealth/Resources/SettingsMenuInGame.png)
+![InGameSettings](https://github.com/Aryetis/AutoPauseStealth/blob/master/AutoPauseStealth/Resources/SettingsMenuInGame.png)
+
 [Autoset Min FPS], will automatically set the [Desired Minimal FPS] value based on your headset refreshrate.
+
 [Desired Minimal FPS], FPS value to reach what is considered a stable framerate.
+
 [FPS Stability Check Duration], FPS must be above [Desired Minimal FPS] for that much seconds before the mod will start the song.
+
 [Force GameStart duration], It's a railguard. If somehow your computer can't reach a stable framerate at start under [Force GameStart duration] seconds, then it will start the song anyways.
 
 ----------
