@@ -18,6 +18,7 @@ Ok so you can't rid of the startup lags, then try this mod as a last resort.
 ## Settings :
 
 What are those ?
+
 ![InGameSettings](https://github.com/Aryetis/AutoPauseStealth/blob/master/AutoPauseStealth/Resources/SettingsMenuInGame.png)
 
 [Autoset Min FPS], will automatically set the [Desired Minimal FPS] value based on your headset refreshrate.
