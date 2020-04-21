@@ -11,7 +11,7 @@ namespace AutoPauseStealth
     [Plugin(RuntimeOptions.DynamicInit)]
     public class Plugin
     {
-        public const string HarmonyId = "com.github.Aryetis.AutoPauseStealth"; // TODO
+        public const string HarmonyId = "com.github.Aryetis.AutoPauseStealth";
         internal static Harmony harmony = new Harmony(HarmonyId);
 
         internal static Plugin instance { get; private set; }

@@ -10,6 +10,10 @@ namespace AutoPauseStealth
         public void OnActiveSceneChanged(UnityEngine.SceneManagement.Scene prevScene, UnityEngine.SceneManagement.Scene nextScene)
         {
             Logger.log?.Debug($"{name}: LoadingScene({nextScene.name})");
+
+            if (b_stabilityPeriodActive) // because of fast restart/exit combined with long StabilityDurationCheck
+                CancelInvoke("StopStabilityCheckPeriod");
+
             if (nextScene.name == "GameCore")
             {
                 GamePause = Resources.FindObjectsOfTypeAll<GamePause>().FirstOrDefault();
@@ -46,6 +50,7 @@ namespace AutoPauseStealth
         private void Start()
         {
             b_inGame = false;
+            b_stabilityPeriodActive = false;
             Logger.log?.Debug($"{name}: Start()");
             UnityEngine.SceneManagement.SceneManager.activeSceneChanged += OnActiveSceneChanged;
         }

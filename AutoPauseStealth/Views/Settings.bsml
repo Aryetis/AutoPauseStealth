@@ -14,7 +14,7 @@
 	</horizontal>
 	<horizontal horizontal-fit="PreferredSize">
 		<slider-setting apply-on-change="true" value="maxWaitingTime" text="Force GameStart duration" 
-						hover-hint="Game will automatically starts after [Force GameStart duration] seconds regardless of fps" 
+						hover-hint="Game will automatically start after [Force GameStart duration] seconds regardless of fps" 
 						min="1" max="10" increment="1"></slider-setting>
 	</horizontal>
 </settings-container>
