@@ -1,0 +1,20 @@
+﻿<settings-container>
+	<horizontal horizontal-fit="PreferredSize">
+		<button text="Autoset Min FPS" hover-hint='Auto Determine Minimal FPS' on-click='DetermineMinFPS'></button>
+	</horizontal>
+	<horizontal horizontal-fit="PreferredSize">
+		<slider-setting apply-on-change="true" value="fpsThresold" text="Desired Minimal FPS"
+						hover-hint="FPS value to reach before starting the song"
+						min="70" max="150" increment="5"></slider-setting>
+	</horizontal>
+	<horizontal horizontal-fit="PreferredSize">
+		<slider-setting apply-on-change="true" value="stabilityDurationCheck" text="FPS Stability Check Duration"
+						hover-hint="How long does the fps have to be above [Desired Minimal FPS] for the game to start"
+						min="0.2" max="2" increment="0.1"></slider-setting>
+	</horizontal>
+	<horizontal horizontal-fit="PreferredSize">
+		<slider-setting apply-on-change="true" value="maxWaitingTime" text="Force GameStart duration" 
+						hover-hint="Game will automatically starts after [Force GameStart duration] seconds regardless of fps" 
+						min="1" max="10" increment="1"></slider-setting>
+	</horizontal>
+</settings-container>
