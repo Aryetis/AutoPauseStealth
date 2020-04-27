@@ -36,17 +36,20 @@ namespace AutoPauseStealth
 
         public void Awake()
         {
+            ConfigIntializationOk = false;
             bsConfig = new Config(Plugin.Name);
 
-            FpsThresold = (Enum.TryParse(bsConfig.GetString("Modes", "Menu", "Interactive"), out float fpsTParsed))
+            FpsThresold = (float.TryParse(bsConfig.GetString("Settings", "fpsThresold"), out float fpsTParsed))
                 ? fpsTParsed
                 : 70.0f;
-            StabilityDurationCheck = (Enum.TryParse(bsConfig.GetString("Modes", "Menu", "Interactive"), out float sdcParsed))
+            StabilityDurationCheck = (float.TryParse(bsConfig.GetString("Settings", "stabilityDurationCheck"), out float sdcParsed))
                 ? sdcParsed
                 : 0.25f;
-            MaxWaitingTime = (Enum.TryParse(bsConfig.GetString("Modes", "Menu", "Interactive"), out float mwtParsed))
+            MaxWaitingTime = (float.TryParse(bsConfig.GetString("Settings", "maxWaitingTime"), out float mwtParsed))
                 ? mwtParsed
                 : 5.0f;
+
+            ConfigIntializationOk = true;
         }
 
         [UIParams]
@@ -55,5 +58,6 @@ namespace AutoPauseStealth
         private float fpsThresold;
         private float stabilityDurationCheck;
         private float maxWaitingTime;
+        public bool ConfigIntializationOk;
     }
 }

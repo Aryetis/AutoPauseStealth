@@ -118,7 +118,7 @@
     <Compile Include="HarmonyPatches\Patches.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Logger.cs" />
-    <Compile Include="Configuration\Config.cs" />
+    <Compile Include="Configuration\PluginSettings.cs" />
     <Compile Include="AutoPauseStealthController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

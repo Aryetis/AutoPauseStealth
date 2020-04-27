@@ -11,6 +11,9 @@ namespace AutoPauseStealth
         {
             Logger.log?.Debug($"{name}: LoadingScene({nextScene.name})");
 
+            if (!PluginSettings.instance.ConfigIntializationOk)
+                return;
+
             if (b_stabilityPeriodActive) // because of fast restart/exit combined with long StabilityDurationCheck
                 CancelInvoke("StopStabilityCheckPeriod");
 
@@ -64,7 +67,7 @@ namespace AutoPauseStealth
 
         private void Update()
         {
-            if (b_inGame && b_stabilityPeriodActive) 
+            if (PluginSettings.instance.ConfigIntializationOk && b_inGame && b_stabilityPeriodActive) 
             {
                 f_fps = 1.0f / Time.deltaTime;
 

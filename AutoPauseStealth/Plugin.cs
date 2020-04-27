@@ -26,16 +26,11 @@ namespace AutoPauseStealth
             Logger.log.Debug("Logger initialized.");
         }
 
-        [OnStart]
-        public void OnStart()
-        {
-            BSMLSettings.instance.AddSettingsMenu("AutoPauseStealth", "AutoPauseStealth.Views.settings.bsml", AutoPauseStealth.PluginSettings.instance);
-        }
-
         #region Disableable
         [OnEnable]
         public void OnEnable()
         {
+            BSMLSettings.instance.AddSettingsMenu("AutoPauseStealth", "AutoPauseStealth.Views.settings.bsml", PluginSettings.instance);
             new GameObject("AutoPauseStealthController").AddComponent<AutoPauseStealthController>();
             ApplyHarmonyPatches();
         }
@@ -43,6 +38,7 @@ namespace AutoPauseStealth
         [OnDisable]
         public void OnDisable()
         {
+            BSMLSettings.instance.RemoveSettingsMenu(PluginSettings.instance);
             if (PluginController != null)
                 GameObject.Destroy(PluginController);
             RemoveHarmonyPatches();
