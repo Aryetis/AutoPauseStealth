@@ -75,6 +75,7 @@ namespace AutoPauseStealth
                     {
                         Logger.log?.Info($"Initialization Lag finished, resuming game");
                         GamePause.Resume();
+                        CancelInvoke("StopStabilityCheckPeriod");
                         b_stabilityPeriodActive = false;
                     }
                 }
