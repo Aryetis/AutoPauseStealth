@@ -16,4 +16,15 @@ namespace AutoPauseStealth.Patches
             return;
         }
     }
+
+    [HarmonyPatch(typeof(PauseMenuManager))]
+    [HarmonyPatch("ShowMenu")]
+    class PauseMenuManagerPatch
+    {
+        static void Postfix(PauseMenuManager __instance)
+        {
+            AutoPauseStealthController.instance.OnPauseShowMenu();
+            return;
+        }
+    }
 }

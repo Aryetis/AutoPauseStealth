@@ -35,7 +35,16 @@ namespace AutoPauseStealth
             }
         }
 
-
+        // Prevent game from unpausing if paused during StabilityCheck period
+        public void OnPauseShowMenu()
+        {
+            if (b_stabilityPeriodActive)
+            {
+                Logger.log?.Debug($"Pause requested during StabilityCheck period => Turn off Stability check and cancel StopStabilityCheckPeriod routine");
+                b_stabilityPeriodActive = false;
+                CancelInvoke("StopStabilityCheckPeriod");
+            }
+        }
 
         private void Awake()
         {

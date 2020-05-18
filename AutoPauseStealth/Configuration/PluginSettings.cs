@@ -29,9 +29,20 @@ namespace AutoPauseStealth
         [UIAction("DetermineMinFPS")]
         public void DetermineMinFPS()
         {
-            FpsThresold = UnityEngine.Mathf.Round(UnityEngine.XR.XRDevice.refreshRate) - 5.0f;
+            DetermineMinFPSSub();
             parserParams.EmitEvent("cancel");
             Logger.log?.Info($"Determining MinFPS as {FpsThresold}");
+        }
+
+        private void DetermineMinFPSSub()
+        {
+            float hrmFrameRate = UnityEngine.XR.XRDevice.refreshRate;
+            if (hrmFrameRate == 0.0f)
+            {
+                Logger.log?.Error("Couldn't get HRM FrameRate, assuming it's 80 fps");
+                hrmFrameRate = 80.0f;
+            }
+            FpsThresold = UnityEngine.Mathf.Round(hrmFrameRate) - 5.0f;
         }
 
         public void Awake()
@@ -39,12 +50,13 @@ namespace AutoPauseStealth
             ConfigIntializationOk = false;
             bsConfig = new Config(Plugin.Name);
 
-            FpsThresold = (float.TryParse(bsConfig.GetString("Settings", "fpsThresold"), out float fpsTParsed))
-                ? fpsTParsed
-                : 70.0f;
+            if (float.TryParse(bsConfig.GetString("Settings", "fpsThresold"), out float fpsTParsed))
+                FpsThresold = fpsTParsed;
+            else
+                DetermineMinFPSSub();
             StabilityDurationCheck = (float.TryParse(bsConfig.GetString("Settings", "stabilityDurationCheck"), out float sdcParsed))
                 ? sdcParsed
-                : 0.25f;
+                : 0.3f;
             MaxWaitingTime = (float.TryParse(bsConfig.GetString("Settings", "maxWaitingTime"), out float mwtParsed))
                 ? mwtParsed
                 : 5.0f;
