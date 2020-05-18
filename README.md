@@ -41,5 +41,7 @@ Okay okay... If it works correctly you should be missing your sabers at the begi
 ## Where do I download it ? How do I install it ?
 
 Check the Release page https://github.com/Aryetis/AutoPauseStealth/releases and donwload the latest release
+
 Use ModAssistant to install the bare minimal mods / requirements : BSIPA, SongLoader, BeatSaberMarkupLanguage, BS Utils
+
 Copy the AutoPauseStealth.dll in the following folder [SteamFolder]\steamapps\common\Beat Saber\Plugins
