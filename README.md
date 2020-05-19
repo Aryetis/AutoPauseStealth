@@ -35,3 +35,13 @@ What are those ?
 
 Well if it works correctly you shouldn't notice it, otherwise it wouldn't be stealth would it.
 Okay okay... If it works correctly you should be missing your sabers at the beginning of the song for [FPS Stability Check Duration] seconds.
+
+----------
+
+## Where do I download it ? How do I install it ?
+
+Check the Release page https://github.com/Aryetis/AutoPauseStealth/releases and donwload the latest release
+
+Use ModAssistant to install the bare minimal mods / requirements : BSIPA, SongLoader, BeatSaberMarkupLanguage, BS Utils
+
+Copy the AutoPauseStealth.dll in the following folder [SteamFolder]\steamapps\common\Beat Saber\Plugins
