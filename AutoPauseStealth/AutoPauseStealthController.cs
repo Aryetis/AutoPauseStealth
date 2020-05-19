@@ -6,6 +6,8 @@ namespace AutoPauseStealth
     public class AutoPauseStealthController : MonoBehaviour
     {
         public static AutoPauseStealthController instance { get; private set; }
+        public static GamePause GamePause;
+        public static bool StabilityPeriodActive;
 
         public void OnActiveSceneChanged(UnityEngine.SceneManagement.Scene prevScene, UnityEngine.SceneManagement.Scene nextScene)
         {
@@ -14,8 +16,11 @@ namespace AutoPauseStealth
             if (!PluginSettings.instance.ConfigIntializationOk)
                 return;
 
-            if (b_stabilityPeriodActive) // because of fast restart/exit combined with long StabilityDurationCheck
+            if (StabilityPeriodActive) // because of fast restart/exit combined with long StabilityDurationCheck
+            {
                 CancelInvoke("StopStabilityCheckPeriod");
+                StabilityPeriodActive = false;
+            }
 
             if (nextScene.name == "GameCore")
             {
@@ -24,27 +29,27 @@ namespace AutoPauseStealth
                     Logger.log?.Error("Couldn't find GamePause object");
                 b_inGame = true;
                 f_stabilityTimer = 0.0f;
-                b_stabilityPeriodActive = true;
                 Invoke("StopStabilityCheckPeriod", PluginSettings.instance.MaxWaitingTime);
             }
             else
             {
                 GamePause = null;
                 b_inGame = false;
-                b_stabilityPeriodActive = false;
             }
         }
 
         // Prevent game from unpausing if paused during StabilityCheck period
         public void OnPauseShowMenu()
         {
-            if (b_stabilityPeriodActive)
+            if (StabilityPeriodActive)
             {
                 Logger.log?.Debug($"Pause requested during StabilityCheck period => Turn off Stability check and cancel StopStabilityCheckPeriod routine");
-                b_stabilityPeriodActive = false;
+                StabilityPeriodActive = false;
                 CancelInvoke("StopStabilityCheckPeriod");
             }
         }
+
+
 
         private void Awake()
         {
@@ -62,7 +67,7 @@ namespace AutoPauseStealth
         private void Start()
         {
             b_inGame = false;
-            b_stabilityPeriodActive = false;
+            StabilityPeriodActive = false;
             Logger.log?.Debug($"{name}: Start()");
             UnityEngine.SceneManagement.SceneManager.activeSceneChanged += OnActiveSceneChanged;
         }
@@ -71,12 +76,12 @@ namespace AutoPauseStealth
         {
             Logger.log?.Info($"StabilityCheckPeriod over, resuming game");
             GamePause.Resume();
-            b_stabilityPeriodActive = false;
+            StabilityPeriodActive = false;
         }
 
         private void Update()
         {
-            if (PluginSettings.instance.ConfigIntializationOk && b_inGame && b_stabilityPeriodActive) 
+            if (PluginSettings.instance.ConfigIntializationOk && b_inGame && StabilityPeriodActive) 
             {
                 f_fps = 1.0f / Time.deltaTime;
 
@@ -88,7 +93,7 @@ namespace AutoPauseStealth
                         Logger.log?.Info($"Initialization Lag finished, resuming game");
                         GamePause.Resume();
                         CancelInvoke("StopStabilityCheckPeriod");
-                        b_stabilityPeriodActive = false;
+                        StabilityPeriodActive = false;
                     }
                 }
                 else
@@ -108,9 +113,7 @@ namespace AutoPauseStealth
 
 
         private float f_fps;
-        public static GamePause GamePause;
         private float f_stabilityTimer;
         private bool b_inGame;
-        private bool b_stabilityPeriodActive;
     }
 }

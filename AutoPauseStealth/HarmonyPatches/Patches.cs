@@ -12,6 +12,7 @@ namespace AutoPauseStealth.Patches
         {
             __instance.Pause();
             AutoPauseStealthController.GamePause.Pause();
+            AutoPauseStealthController.StabilityPeriodActive = true;
             Logger.log?.Debug($"Pausing game right after AudioTimeSyncControllerPatch::StartSong()");
             return;
         }
