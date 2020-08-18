@@ -25,16 +25,14 @@ namespace AutoPauseStealth
             get => bsConfig.GetFloat("Settings", "maxWaitingTime", maxWaitingTime);
             set => bsConfig.SetFloat("Settings", "maxWaitingTime", value);
         }
-
-        [UIAction("DetermineMinFPS")]
-        public void DetermineMinFPS()
+        [UIValue("reloadOnFailStab")]
+        public bool ReloadOnFailStab
         {
-            DetermineMinFPSSub();
-            parserParams.EmitEvent("cancel");
-            Logger.log?.Info($"Determining MinFPS as {FpsThresold}");
+            get => bsConfig.GetBool("Settings", "reloadOnFailStab", reloadOnFailStab);
+            set => bsConfig.SetBool("Settings", "reloadOnFailStab", value);
         }
 
-        private void DetermineMinFPSSub()
+        private float DetermineMinFPSSub()
         {
             float hrmFrameRate = UnityEngine.XR.XRDevice.refreshRate;
             if (hrmFrameRate == 0.0f)
@@ -42,24 +40,25 @@ namespace AutoPauseStealth
                 Logger.log?.Error("Couldn't get HRM FrameRate, assuming it's 80 fps");
                 hrmFrameRate = 80.0f;
             }
-            FpsThresold = UnityEngine.Mathf.Round(hrmFrameRate) - 5.0f;
+            return UnityEngine.Mathf.Round(hrmFrameRate) - 5.0f;
         }
 
         public void Awake()
         {
             ConfigIntializationOk = false;
             bsConfig = new Config(Plugin.Name);
+            RecommendedFpsThresold = "Recommended Min FPS value for your headset is " + DetermineMinFPSSub();
 
-            if (float.TryParse(bsConfig.GetString("Settings", "fpsThresold"), out float fpsTParsed))
-                FpsThresold = fpsTParsed;
-            else
-                DetermineMinFPSSub();
+            FpsThresold = (float.TryParse(bsConfig.GetString("Settings", "fpsThresold"), out float fpsTParsed))
+                ? fpsTParsed
+                : DetermineMinFPSSub();
             StabilityDurationCheck = (float.TryParse(bsConfig.GetString("Settings", "stabilityDurationCheck"), out float sdcParsed))
                 ? sdcParsed
                 : 0.3f;
             MaxWaitingTime = (float.TryParse(bsConfig.GetString("Settings", "maxWaitingTime"), out float mwtParsed))
                 ? mwtParsed
                 : 5.0f;
+            ReloadOnFailStab = bsConfig.GetBool("Settings", "reloadOnFailStab");
 
             ConfigIntializationOk = true;
         }
@@ -70,6 +69,10 @@ namespace AutoPauseStealth
         private float fpsThresold;
         private float stabilityDurationCheck;
         private float maxWaitingTime;
+        private bool reloadOnFailStab;
         public bool ConfigIntializationOk;
+
+        [UIValue("RecommendedFpsThresold")]
+        public string RecommendedFpsThresold;
     }
 }

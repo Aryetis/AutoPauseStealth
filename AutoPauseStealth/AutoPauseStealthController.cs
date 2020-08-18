@@ -7,6 +7,7 @@ namespace AutoPauseStealth
     {
         public static AutoPauseStealthController instance { get; private set; }
         public static GamePause GamePause;
+        public static ILevelRestartController RestartController;
         public static bool StabilityPeriodActive;
 
         public void OnActiveSceneChanged(UnityEngine.SceneManagement.Scene prevScene, UnityEngine.SceneManagement.Scene nextScene)
@@ -27,6 +28,17 @@ namespace AutoPauseStealth
                 GamePause = Resources.FindObjectsOfTypeAll<GamePause>().FirstOrDefault();
                 if (GamePause == null)
                     Logger.log?.Error("Couldn't find GamePause object");
+                RestartController = Resources.FindObjectsOfTypeAll<StandardLevelRestartController>().FirstOrDefault();
+                if (RestartController == null)
+                {
+                    RestartController = Resources.FindObjectsOfTypeAll<MissionLevelRestartController>().FirstOrDefault();
+                    if (RestartController == null)
+                    {
+                        RestartController = Resources.FindObjectsOfTypeAll<TutorialRestartController>().FirstOrDefault();
+                        if (RestartController == null)
+                            Logger.log?.Error("Couldn't find RestartController object");
+                    }
+                }
                 b_inGame = true;
                 f_stabilityTimer = 0.0f;
                 Invoke("StopStabilityCheckPeriod", PluginSettings.instance.MaxWaitingTime);
@@ -38,7 +50,7 @@ namespace AutoPauseStealth
             }
         }
 
-        // Prevent game from unpausing if paused during StabilityCheck period
+        // Prevent game from unpausing if paused during StabilityCheck period (side effect, it will stop the fps stabilization process... meh)
         public void OnPauseShowMenu()
         {
             if (StabilityPeriodActive)
@@ -72,11 +84,14 @@ namespace AutoPauseStealth
             UnityEngine.SceneManagement.SceneManager.activeSceneChanged += OnActiveSceneChanged;
         }
 
-        private void StopStabilityCheckPeriod()
+        private void StopStabilityCheckPeriod() // In ideal times, shouldn't be called / should be canceled
         {
             Logger.log?.Info($"StabilityCheckPeriod over, resuming game");
-            GamePause.Resume();
             StabilityPeriodActive = false;
+            if (PluginSettings.instance.ReloadOnFailStab)
+                RestartController.RestartLevel();
+            else
+                GamePause.Resume();
         }
 
         private void Update()
@@ -91,15 +106,13 @@ namespace AutoPauseStealth
                     if (f_stabilityTimer >= PluginSettings.instance.StabilityDurationCheck)
                     {
                         Logger.log?.Info($"Initialization Lag finished, resuming game");
-                        GamePause.Resume();
                         CancelInvoke("StopStabilityCheckPeriod");
+                        GamePause.Resume();
                         StabilityPeriodActive = false;
                     }
                 }
                 else
-                {
                     f_stabilityTimer = 0.0f;
-                }
             }
         }
 

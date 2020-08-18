@@ -1,6 +1,6 @@
 ﻿<settings-container>
 	<horizontal horizontal-fit="PreferredSize">
-		<button text="Autoset Min FPS" hover-hint='Auto Determine Minimal FPS' on-click='DetermineMinFPS'></button>
+    <text text='~RecommendedFpsThresold' align='Center'></text>
 	</horizontal>
 	<horizontal horizontal-fit="PreferredSize">
 		<slider-setting apply-on-change="true" value="fpsThresold" text="Desired Minimal FPS"
@@ -17,4 +17,9 @@
 						hover-hint="Game will automatically start after [Force GameStart duration] seconds regardless of fps" 
 						min="1" max="10" increment="1"></slider-setting>
 	</horizontal>
+  <horizontal horizontal-fit="PreferredSize">
+    <checkbox-setting apply-on-change="true" value="reloadOnFailStab" text="Reload if fps stabilization failed"
+						hover-hint="Song will reload if game couldn't stabilize its fps under [Force GameStart duration] seconds"
+						></checkbox-setting>
+  </horizontal>
 </settings-container>
