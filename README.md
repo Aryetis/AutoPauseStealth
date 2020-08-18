@@ -45,3 +45,11 @@ Check the Release page https://github.com/Aryetis/AutoPauseStealth/releases and 
 Use ModAssistant to install the bare minimal mods / requirements : BSIPA, SongLoader, BeatSaberMarkupLanguage, BS Utils
 
 Copy the AutoPauseStealth.dll in the following folder [SteamFolder]\steamapps\common\Beat Saber\Plugins
+
+----------
+
+## Known Issues
+
+The [Autoset Min FPS] button can be a little intrusive and like to reset [Desired Minimal FPS]'s value too.
+
+"Sometimes it seems like I'm not lagging yet I'm left hanging up a long time at startup". If you set a big values for both [FPS Stability Check Duration] and [Force GameStart duration] this kind of situation can happen as the mod will require your game's framerate to be above [Desired Minimal FPS] for the whoooole [FPS Stability Check Duration]. And so if your framerate dips below [Desired Minimal FPS] even for 0.01 second, it's enough for the mod to keep the game paused. Flawed ? Maybe. As designed ? Yes. Solution ? Try to lower your [Desired Minimal FPS] and [FPS Stability Check Duration]. Hotel ? Trivago.
