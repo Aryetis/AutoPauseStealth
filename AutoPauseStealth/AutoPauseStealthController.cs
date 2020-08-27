@@ -14,9 +14,6 @@ namespace AutoPauseStealth
         {
             Logger.log?.Debug($"{name}: LoadingScene({nextScene.name})");
 
-            if (!PluginSettings.instance.ConfigIntializationOk)
-                return;
-
             if (StabilityPeriodActive) // because of fast restart/exit combined with long StabilityDurationCheck
             {
                 CancelInvoke("StopStabilityCheckPeriod");
@@ -41,7 +38,7 @@ namespace AutoPauseStealth
                 }
                 b_inGame = true;
                 f_stabilityTimer = 0.0f;
-                Invoke("StopStabilityCheckPeriod", PluginSettings.instance.MaxWaitingTime);
+                Invoke("StopStabilityCheckPeriod", PluginSettings.Instance.MaxWaitingTime);
             }
             else
             {
@@ -88,7 +85,7 @@ namespace AutoPauseStealth
         {
             Logger.log?.Info($"StabilityCheckPeriod over, resuming game");
             StabilityPeriodActive = false;
-            if (PluginSettings.instance.ReloadOnFailStab)
+            if (PluginSettings.Instance.ReloadOnFailStab)
                 RestartController.RestartLevel();
             else
                 GamePause.Resume();
@@ -96,14 +93,14 @@ namespace AutoPauseStealth
 
         private void Update()
         {
-            if (PluginSettings.instance.ConfigIntializationOk && b_inGame && StabilityPeriodActive) 
+            if (b_inGame && StabilityPeriodActive) 
             {
                 f_fps = 1.0f / Time.deltaTime;
 
-                if (f_fps > PluginSettings.instance.FpsThresold)
+                if (f_fps > PluginSettings.Instance.FpsThresold)
                 {
                     f_stabilityTimer += Time.deltaTime;
-                    if (f_stabilityTimer >= PluginSettings.instance.StabilityDurationCheck)
+                    if (f_stabilityTimer >= PluginSettings.Instance.StabilityDurationCheck)
                     {
                         Logger.log?.Info($"Initialization Lag finished, resuming game");
                         CancelInvoke("StopStabilityCheckPeriod");

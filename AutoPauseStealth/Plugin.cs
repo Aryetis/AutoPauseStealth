@@ -5,6 +5,8 @@ using IPA;
 using UnityEngine;
 using HarmonyLib;
 using IPALogger = IPA.Logging.Logger;
+using IPA.Config;
+using IPA.Config.Stores;
 
 namespace AutoPauseStealth
 {
@@ -19,18 +21,21 @@ namespace AutoPauseStealth
         internal static AutoPauseStealthController PluginController { get { return AutoPauseStealthController.instance; } }
 
         [Init]
-        public Plugin(IPALogger logger)
+        public Plugin(IPALogger logger, Config conf) 
         {
             instance = this;
             Logger.log = logger;
             Logger.log.Debug("Logger initialized.");
+
+            PluginSettings.Instance = conf.Generated<PluginSettings>();
+            PluginSettings.Instance.Awake();
         }
 
         #region Disableable
         [OnEnable]
         public void OnEnable()
         {
-            BSMLSettings.instance.AddSettingsMenu("AutoPauseStealth", "AutoPauseStealth.Views.settings.bsml", PluginSettings.instance);
+            BSMLSettings.instance.AddSettingsMenu("AutoPauseStealth", "AutoPauseStealth.Views.settings.bsml", PluginSettings.Instance);
             new GameObject("AutoPauseStealthController").AddComponent<AutoPauseStealthController>();
             ApplyHarmonyPatches();
         }
@@ -38,7 +43,7 @@ namespace AutoPauseStealth
         [OnDisable]
         public void OnDisable()
         {
-            BSMLSettings.instance.RemoveSettingsMenu(PluginSettings.instance);
+            BSMLSettings.instance.RemoveSettingsMenu(PluginSettings.Instance);
             if (PluginController != null)
                 GameObject.Destroy(PluginController);
             RemoveHarmonyPatches();
