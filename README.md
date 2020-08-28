@@ -21,22 +21,13 @@ What are those ?
 
 ![InGameSettings](https://github.com/Aryetis/AutoPauseStealth/blob/master/AutoPauseStealth/Resources/SettingsMenuInGame.jpg)
 
-[Autoset Min FPS], will automatically set the [Desired Minimal FPS] value based on your headset refreshrate.
+**[Desired Minimal FPS]**, FPS value to reach what is considered a stable framerate.
 
-[Desired Minimal FPS], FPS value to reach what is considered a stable framerate.
+**[FPS Stability Check Duration]**, FPS must be above **[Desired Minimal FPS]** for that much seconds before the mod will start the song. (Anything above 0.3 should be overkill)
 
-[FPS Stability Check Duration], FPS must be above [Desired Minimal FPS] for that much seconds before the mod will start the song.
+**[Force GameStart duration]**, It's a railguard. If somehow your computer can't reach a stable framerate at start under **[Force GameStart duration]** seconds, then it will start the song anyways.
 
-[Force GameStart duration], It's a railguard. If somehow your computer can't reach a stable framerate at start under [Force GameStart duration] seconds, then it will start the song anyways.
-
-[Reload if fps stabilization failed], Another railguard, if this box is ticked and the game fails to stabilize its fps at the beginning of a song, then it will reload the song. Althought unlikely to happen, reloading has been proven effective in most of the cases. (Ticked off by default to avoid incomprehension if the user is using bad settings.
-
-----------
-
-## How do I know if it works ?
-
-Well if it works correctly you shouldn't notice it, otherwise it wouldn't be stealth would it.
-Okay okay... If it works correctly you should be missing your sabers at the beginning of the song for [FPS Stability Check Duration] seconds.
+**[Reload if fps stabilization failed]**, Another railguard, if this box is ticked and the game fails to stabilize its fps at the beginning of a song, then it will reload the song. Althought unlikely to happen, reloading has been proven effective in most of the cases. (Ticked off by default to avoid incomprehension if the user is using bad settings.
 
 ----------
 
@@ -48,11 +39,15 @@ Use ModAssistant to install the bare minimal mods / requirements : BSIPA, SongLo
 
 Copy the AutoPauseStealth.dll in the following folder [SteamFolder]\steamapps\common\Beat Saber\Plugins
 
+Or 
+
+Wait for it to show up in ModAssistant and downnload it there
+
 ----------
 
 ## Known Issues
 
-"Sometimes it seems like I'm not lagging yet I'm left hanging up a long time at startup". If you set a big values for both [FPS Stability Check Duration] and [Force GameStart duration] this kind of situation can happen as the mod will require your game's framerate to be above [Desired Minimal FPS] for the whoooole [FPS Stability Check Duration]. And so if your framerate dips below [Desired Minimal FPS] even for 0.01 second, it's enough for the mod to keep the game paused. Flawed ? Maybe. As designed ? Yes. Solution ? Try to lower your [Desired Minimal FPS] and [FPS Stability Check Duration]. Hotel ? Trivago.
+- "Sometimes it seems like I'm not lagging yet I'm left hanging up a long time at startup"
 
+If you set a big values for both **[FPS Stability Check Duration]** and **[Force GameStart duration]** this kind of situation can happen as the mod will require your game's framerate to be above **[Desired Minimal FPS]** for the whoooole **[FPS Stability Check Duration]**. And so if your framerate dips below **[Desired Minimal FPS]** even for 0.01 second, it's enough for the mod to keep the game paused. Flawed ? Maybe. As designed ? Yes. Solution ? Try to lower your **[Desired Minimal FPS]** and **[FPS Stability Check Duration]**. Hotel ? Trivago.
 
-"AutoPauseStealth seems to cause problems when used with tricksaber (I'm working on it)
