@@ -3,7 +3,7 @@
   "id": "AutoPauseStealth",
   "name": "AutoPauseStealth",
   "author": "Aryetis",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Automatically and stealthly pause your game at the start of every song waiting for potential lag spikes to end.",
   "gameVersion": "1.11.1",
   "dependsOn": {

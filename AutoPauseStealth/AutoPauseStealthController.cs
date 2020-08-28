@@ -6,8 +6,8 @@ namespace AutoPauseStealth
     public class AutoPauseStealthController : MonoBehaviour
     {
         public static AutoPauseStealthController instance { get; private set; }
-public static ScoreController ScoreController;
-public static SongController SongController;
+        public static ScoreController ScoreController;
+        public static SongController SongController;
         public static ILevelRestartController RestartController;
         public static bool StabilityPeriodActive;
 
@@ -115,7 +115,10 @@ public static SongController SongController;
                     }
                 }
                 else
+                {
                     f_stabilityTimer = 0.0f;
+                    Logger.log?.Debug($"Fps dipping below threshold");
+                }
             }
         }
 
