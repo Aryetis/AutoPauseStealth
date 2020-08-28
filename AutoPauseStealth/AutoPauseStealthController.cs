@@ -6,7 +6,8 @@ namespace AutoPauseStealth
     public class AutoPauseStealthController : MonoBehaviour
     {
         public static AutoPauseStealthController instance { get; private set; }
-        public static GamePause GamePause;
+public static ScoreController ScoreController;
+public static SongController SongController;
         public static ILevelRestartController RestartController;
         public static bool StabilityPeriodActive;
 
@@ -15,16 +16,22 @@ namespace AutoPauseStealth
             Logger.log?.Debug($"{name}: LoadingScene({nextScene.name})");
 
             if (StabilityPeriodActive) // because of fast restart/exit combined with long StabilityDurationCheck
-            {
-                CancelInvoke("StopStabilityCheckPeriod");
-                StabilityPeriodActive = false;
-            }
+                CancelInvoke("StopStabilityCheckPeriod"); // Cancel previous session's StopStabilityCheckPeriod
 
             if (nextScene.name == "GameCore")
             {
-                GamePause = Resources.FindObjectsOfTypeAll<GamePause>().FirstOrDefault();
-                if (GamePause == null)
-                    Logger.log?.Error("Couldn't find GamePause object");
+                StabilityPeriodActive = true;
+                b_inGame = true;
+                f_stabilityTimer = 0.0f;
+
+                ScoreController = Resources.FindObjectsOfTypeAll<ScoreController>().FirstOrDefault();
+                if (ScoreController == null)
+                    Logger.log?.Error("Couldn't find ScoreController object");
+
+                SongController = Resources.FindObjectsOfTypeAll<SongController>().FirstOrDefault();
+                if (SongController == null)
+                    Logger.log?.Error("Couldn't find SongController object");
+
                 RestartController = Resources.FindObjectsOfTypeAll<StandardLevelRestartController>().FirstOrDefault();
                 if (RestartController == null)
                 {
@@ -36,15 +43,10 @@ namespace AutoPauseStealth
                             Logger.log?.Error("Couldn't find RestartController object");
                     }
                 }
-                b_inGame = true;
-                f_stabilityTimer = 0.0f;
                 Invoke("StopStabilityCheckPeriod", PluginSettings.Instance.MaxWaitingTime);
             }
             else
-            {
-                GamePause = null;
                 b_inGame = false;
-            }
         }
 
         // Prevent game from unpausing if paused during StabilityCheck period (side effect, it will stop the fps stabilization process... meh)
@@ -88,7 +90,10 @@ namespace AutoPauseStealth
             if (PluginSettings.Instance.ReloadOnFailStab)
                 RestartController.RestartLevel();
             else
-                GamePause.Resume();
+            {
+                ScoreController.enabled = true;
+                SongController.StartSong();
+            }
         }
 
         private void Update()
@@ -104,8 +109,9 @@ namespace AutoPauseStealth
                     {
                         Logger.log?.Info($"Initialization Lag finished, resuming game");
                         CancelInvoke("StopStabilityCheckPeriod");
-                        GamePause.Resume();
                         StabilityPeriodActive = false;
+                        ScoreController.enabled = true;
+                        SongController.StartSong();
                     }
                 }
                 else

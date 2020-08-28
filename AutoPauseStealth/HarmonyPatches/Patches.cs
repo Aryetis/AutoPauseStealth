@@ -1,6 +1,4 @@
 ﻿using HarmonyLib;
-using System;
-using UnityEngine;
 
 namespace AutoPauseStealth.Patches
 {
@@ -10,10 +8,14 @@ namespace AutoPauseStealth.Patches
     {
         static void Postfix(AudioTimeSyncController __instance)
         {
-            __instance.Pause();
-            AutoPauseStealthController.GamePause.Pause();
-            AutoPauseStealthController.StabilityPeriodActive = true;
-            Logger.log?.Debug($"Pausing game right after AudioTimeSyncControllerPatch::StartSong()");
+            if (AutoPauseStealthController.StabilityPeriodActive)
+            {
+                AutoPauseStealthController.ScoreController.enabled = false;
+                AutoPauseStealthController.SongController.PauseSong();
+                Logger.log?.Debug($"AutoPauseStealthController.StabilityPeriodActive is true " +
+                                  $"=> Pausing game right after AudioTimeSyncControllerPatch::StartSong()");
+            }
+
             return;
         }
     }
