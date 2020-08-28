@@ -21,7 +21,7 @@ What are those ?
 
 ![InGameSettings](https://github.com/Aryetis/AutoPauseStealth/blob/master/AutoPauseStealth/Resources/SettingsMenuInGame.jpg)
 
-**[Desired Minimal FPS]**, FPS value to reach what is considered a stable framerate. **<ins> DO NOT SET THIS TO ANY VALUES ABOVE YOUR HEADSET REFRESH RATE </ins>**
+**[Desired Minimal FPS]**, FPS value to reach for what is considered a stable framerate. **<ins> DO NOT SET THIS TO ANY VALUES ABOVE YOUR HEADSET REFRESH RATE </ins>**
 
 **[FPS Stability Check Duration]**, FPS must be above **[Desired Minimal FPS]** for that much seconds before the mod will start the song. (Anything above 0.3 should be overkill)
 
