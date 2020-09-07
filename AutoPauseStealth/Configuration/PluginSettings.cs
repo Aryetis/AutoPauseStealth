@@ -22,14 +22,13 @@ namespace AutoPauseStealth
 
         public void Awake() // Non Unity
         {
-            Logger.log?.Info($"SANITY CHECK ARE YOU THERE");
-            if (float.IsNaN(FpsThresold))
+            if (FpsThresold == 0.0f)
                 FpsThresold = DetermineMinFPSSub();
             RecommendedFpsThresold = "Recommended Min FPS value for your headset is " + DetermineMinFPSSub();
         }
 
         [UIValue("fpsThresold")]
-        public float FpsThresold { get; set; } = float.NaN;
+        public float FpsThresold { get; set; } = 0.0f;
 
         [UIValue("stabilityDurationCheck")]
         public float StabilityDurationCheck { get; set; } = 0.3f;
