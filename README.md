@@ -15,6 +15,12 @@ Ok so you can't rid of the startup lags, then try this mod as a last resort.
 
 ----------
 
+## Multiplayer Support ?
+
+No. The mod should not have any effects on multiplayer sessions.
+
+----------
+
 ## Settings :
 
 What are those ?
