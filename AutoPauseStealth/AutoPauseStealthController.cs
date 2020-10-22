@@ -10,10 +10,11 @@ namespace AutoPauseStealth
         public static SongController SongController;
         public static ILevelRestartController RestartController;
         public static bool StabilityPeriodActive;
+        public static bool IsMultiplayer;
 
         public void OnActiveSceneChanged(UnityEngine.SceneManagement.Scene prevScene, UnityEngine.SceneManagement.Scene nextScene)
         {
-            Logger.log?.Debug($"{name}: LoadingScene({nextScene.name})");
+            Logger.log?.Debug($"{name}: LoadingScene({nextScene.name} : {nextScene.path})");
 
             if (StabilityPeriodActive) // because of fast restart/exit combined with long StabilityDurationCheck
                 CancelInvoke("StopStabilityCheckPeriod"); // Cancel previous session's StopStabilityCheckPeriod
@@ -24,25 +25,35 @@ namespace AutoPauseStealth
                 b_inGame = true;
                 f_stabilityTimer = 0.0f;
 
-                ScoreController = Resources.FindObjectsOfTypeAll<ScoreController>().FirstOrDefault();
+                IsMultiplayer = (Resources.FindObjectsOfTypeAll<MultiplayerController>().LastOrDefault() != null);
+                if (IsMultiplayer)
+                {
+                    Logger.log?.Info($"Starting Multiplayer play session, AutoPauseStealth will NOT pause the game !");
+                    return;
+                }
+
+                // LastOrDefault() because BeatSaber don't know how to clean and keep every objects created per song play ... 
+                // Lazy fix => LastOrDefault() should assure to grab SinglePlayer related objects ...
+                ScoreController = Resources.FindObjectsOfTypeAll<ScoreController>().LastOrDefault(); 
                 if (ScoreController == null)
                     Logger.log?.Error("Couldn't find ScoreController object");
 
-                SongController = Resources.FindObjectsOfTypeAll<SongController>().FirstOrDefault();
+                SongController = Resources.FindObjectsOfTypeAll<SongController>().LastOrDefault();
                 if (SongController == null)
                     Logger.log?.Error("Couldn't find SongController object");
 
-                RestartController = Resources.FindObjectsOfTypeAll<StandardLevelRestartController>().FirstOrDefault();
+                RestartController = Resources.FindObjectsOfTypeAll<StandardLevelRestartController>().LastOrDefault();
                 if (RestartController == null)
                 {
-                    RestartController = Resources.FindObjectsOfTypeAll<MissionLevelRestartController>().FirstOrDefault();
+                    RestartController = Resources.FindObjectsOfTypeAll<MissionLevelRestartController>().LastOrDefault();
                     if (RestartController == null)
                     {
-                        RestartController = Resources.FindObjectsOfTypeAll<TutorialRestartController>().FirstOrDefault();
+                        RestartController = Resources.FindObjectsOfTypeAll<TutorialRestartController>().LastOrDefault();
                         if (RestartController == null)
                             Logger.log?.Error("Couldn't find RestartController object");
                     }
                 }
+
                 Invoke("StopStabilityCheckPeriod", PluginSettings.Instance.MaxWaitingTime);
             }
             else
@@ -81,6 +92,7 @@ namespace AutoPauseStealth
             StabilityPeriodActive = false;
             Logger.log?.Debug($"{name}: Start()");
             UnityEngine.SceneManagement.SceneManager.activeSceneChanged += OnActiveSceneChanged;
+            IsMultiplayer = false;
         }
 
         private void StopStabilityCheckPeriod() // In ideal times, shouldn't be called / should be canceled
@@ -92,13 +104,13 @@ namespace AutoPauseStealth
             else
             {
                 ScoreController.enabled = true;
-                SongController.StartSong();
+                SongController.ResumeSong();
             }
         }
 
         private void Update()
         {
-            if (b_inGame && StabilityPeriodActive) 
+            if (b_inGame && StabilityPeriodActive && !IsMultiplayer) 
             {
                 f_fps = 1.0f / Time.deltaTime;
 
@@ -111,7 +123,7 @@ namespace AutoPauseStealth
                         CancelInvoke("StopStabilityCheckPeriod");
                         StabilityPeriodActive = false;
                         ScoreController.enabled = true;
-                        SongController.StartSong();
+                        SongController.ResumeSong();
                     }
                 }
                 else

@@ -8,7 +8,7 @@ namespace AutoPauseStealth.Patches
     {
         static void Postfix(AudioTimeSyncController __instance)
         {
-            if (AutoPauseStealthController.StabilityPeriodActive)
+            if (AutoPauseStealthController.StabilityPeriodActive && !AutoPauseStealthController.IsMultiplayer)
             {
                 AutoPauseStealthController.ScoreController.enabled = false;
                 AutoPauseStealthController.SongController.PauseSong();
@@ -26,7 +26,10 @@ namespace AutoPauseStealth.Patches
     {
         static void Postfix(PauseMenuManager __instance)
         {
-            AutoPauseStealthController.instance.OnPauseShowMenu();
+            if (!AutoPauseStealthController.IsMultiplayer)
+            {
+                AutoPauseStealthController.instance.OnPauseShowMenu();
+            }
             return;
         }
     }
