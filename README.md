@@ -41,7 +41,7 @@ What are those ?
 
 Check the Release page https://github.com/Aryetis/AutoPauseStealth/releases and donwload the latest release
 
-Use ModAssistant to install the bare minimal mods / requirements : BSIPA, SongLoader, BeatSaberMarkupLanguage, BS Utils
+Use ModAssistant to install the bare minimal mods / requirements : BSIPA, BeatSaberMarkupLanguage
 
 Copy the AutoPauseStealth.dll in the following folder [SteamFolder]\steamapps\common\Beat Saber\Plugins
 
