@@ -64,4 +64,4 @@ If you set too high values for both **[FPS Stability Check Duration]** and **[Fo
 
 ## Licensing 
 
-This mod and its source code is under the <a href="https://github.com/Aryetis/AutoPauseStealth/blob/master/license.txt">MIT License</a>
+This mod and its source code is under the <a href="https://github.com/Aryetis/AutoPauseStealth/blob/master/LICENSE">MIT License</a>
