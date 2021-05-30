@@ -29,7 +29,7 @@ What are those ?
 
 **[Desired Minimal FPS]** Framerate will be considered stable once it reaches [Desired Minimal FPS]. **<ins> DO NOT SET THIS TO ANY VALUES ABOVE YOUR HEADSET REFRESH RATE </ins>**. The rule of thumb would be to choose the value right below your headset's refresh rate (or just follow the recommendation stated in-game above this setting). Otherwise you'll wait [Force GameStart duration] seconds at the start of every song for no reason or will experience a reload loop if you ticked [Reload if fps stabilization failed]
 
-**[FPS Stability Check Duration]**, the mod will automatically unpause/start whenever fps counter is above **[Desired Minimal FPS]** for more than**[FPS Stability Check Duration]** seconds. (Anything above 0.3 is probably overkill)
+**[FPS Stability Check Duration]**, the mod will automatically unpause/start whenever fps counter is above **[Desired Minimal FPS]** for more than **[FPS Stability Check Duration]** seconds. (Anything above 0.3 is probably overkill)
 
 **[Force GameStart duration]**, It's a railguard. If somehow your computer can't reach a stable framerate, the mod will unpause/start the song regardless of fps after **[Force GameStart duration]** seconds.
 
