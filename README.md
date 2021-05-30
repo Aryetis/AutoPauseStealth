@@ -3,6 +3,7 @@
 ## Description :
 
 Automatically and stealthly pause your game (without showing any pause UI) at the start of every song waiting for potential lag spikes to end.
+Here's how it works, courtesy of InfoVR :  <a href="https://www.youtube.com/watch?v=VX57BkbV5AQ">Youtube Demo</a>
 
 ----------
 
@@ -37,19 +38,19 @@ What are those ?
 
 ----------
 
-## Where do I download it ? How do I install it ?
+**2 SOLUTIONS :**
 
-2 solutions :
+1/ Manual installation :
 
-Check the Release page https://github.com/Aryetis/AutoPauseStealth/releases and donwload the latest release
+- Check the <a href="https://github.com/Aryetis/AutoPauseStealth/releases">Release page</a> and donwload the latest AutoPauseStealth-\*.zip
 
-Use ModAssistant to install the bare minimal mods / requirements : BSIPA, BeatSaberMarkupLanguage
+- Use <a href="https://github.com/Assistant/ModAssistant">ModAssistant</a> to install the bare minimal mods / requirements : BSIPA, BeatSaberMarkupLanguage
 
-Copy the AutoPauseStealth.dll in the following folder [SteamFolder]\steamapps\common\Beat Saber\Plugins
+- Copy the AutoPauseStealth.dll from the release's page .zip in the following folder [SteamFolder]\steamapps\common\Beat Saber\Plugins
 
 **Or** 
 
-Wait for it to show up in ModAssistant and downnload it there
+2/ Wait for it to show up in ModAssistant and downnload it there
 
 ----------
 
@@ -58,3 +59,9 @@ Wait for it to show up in ModAssistant and downnload it there
 - "Sometimes it seems like I'm not lagging yet I'm left hanging up a long time at startup"
 
 If you set too high values for both **[FPS Stability Check Duration]** and **[Force GameStart duration]** this kind of situation can happen as the mod will require your game's framerate to be above **[Desired Minimal FPS]** for the whoooole **[FPS Stability Check Duration]** to deem the fps stable. Therefore if your framerate dips below **[Desired Minimal FPS]** even for 0.01 second (because of some discord notification, web browser on the side loading something, windows doing its windows things, etc) then it's enough for the mod to keep the game paused. Flawed ? Maybe. As designed ? Yes. Solution ? Set your **[Desired Minimal FPS]** to a correct value and most importantly lower **[FPS Stability Check Duration]**. Hotel ? Trivago.
+
+----------
+
+## Licensing 
+
+This mod and its source code is under the <a href="https://github.com/Aryetis/AutoPauseStealth/blob/master/license.txt">MIT License</a>
