@@ -3,7 +3,6 @@
 ## Description :
 
 Automatically and stealthly pause your game (without showing any pause UI) at the start of every song waiting for potential lag spikes to end.
-Here's how it works, courtesy of InfoVR :  <a href="https://www.youtube.com/watch?v=VX57BkbV5AQ">Youtube Demo</a>
 
 ----------
 
