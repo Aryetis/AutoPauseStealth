@@ -1,6 +1,9 @@
 **AutoPauseStealth v0.1.13**
 
-Games randomly lags at startup ? Tried everything in the sacred scrolls <https://bsmg.wiki/support/#framerate-issues> ? 
+Game randomly lags at startup ? Tried everything in the sacred scrolls <https://bsmg.wiki/support/#framerate-issues> ? 
 Give this mod a try, it will automatically pause your game at startup for a fraction of a second. Giving your computer time to catch up and finish loading everything properly, all the while without showing you the pause UI. You can configure how long you want the game to pause, what ammount of fps to target, automatically reload the song if game refuses to stabilitize, etc Check mod settings for more options.
+
+__Requirements__:
+- BeatSaberMarkupLanguage (BSML)
 
 Github's page : <https://github.com/Aryetis/AutoPauseStealth>
