@@ -36,6 +36,7 @@ What are those ?
 **[Reload if fps stabilization failed]**, Another railguard, if this box is ticked and the game fails to stabilize its fps then it will reload the song. Althought unlikely to happen, reloading has been proven effective in most of those cases. (Ticked off by default to avoid incomprehension if the user has set some crazy values for [Desired Minimal FPS]).
 
 ----------
+## Where do I download it ? How do I install it ?
 
 **2 SOLUTIONS :**
 
