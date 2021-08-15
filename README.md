@@ -3,7 +3,6 @@
 ## Description :
 
 Automatically and stealthly pause your game (without showing any pause UI) at the start of every song waiting for potential lag spikes to end.
-Here's how it works, courtesy of InfoVR :  <a href="https://www.youtube.com/watch?v=VX57BkbV5AQ">Youtube Demo</a>
 
 ----------
 
@@ -37,6 +36,7 @@ What are those ?
 **[Reload if fps stabilization failed]**, Another railguard, if this box is ticked and the game fails to stabilize its fps then it will reload the song. Althought unlikely to happen, reloading has been proven effective in most of those cases. (Ticked off by default to avoid incomprehension if the user has set some crazy values for [Desired Minimal FPS]).
 
 ----------
+## Where do I download it ? How do I install it ?
 
 **2 SOLUTIONS :**
 
@@ -64,4 +64,4 @@ If you set too high values for both **[FPS Stability Check Duration]** and **[Fo
 
 ## Licensing 
 
-This mod and its source code is under the <a href="https://github.com/Aryetis/AutoPauseStealth/blob/master/license.txt">MIT License</a>
+This mod and its source code is under the <a href="https://github.com/Aryetis/AutoPauseStealth/blob/master/LICENSE">MIT License</a>
