@@ -3,11 +3,11 @@
   "id": "AutoPauseStealth",
   "name": "AutoPauseStealth",
   "author": "Aryetis",
-  "version": "0.1.14",
+  "version": "0.1.15",
   "description": "Automatically and stealthly pause your game at the start of every song waiting for potential lag spikes to end.",
-  "gameVersion": "1.17.0",
+  "gameVersion": "1.18.0",
   "dependsOn": {
-    "BeatSaberMarkupLanguage": "^1.5.5",
+    "BeatSaberMarkupLanguage": "^1.5.9",
     "BSIPA": "^4.2.0"
   },
   "links": {
