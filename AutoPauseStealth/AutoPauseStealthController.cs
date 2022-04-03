@@ -21,10 +21,6 @@ namespace AutoPauseStealth
 
             if (nextScene.name == "GameCore")
             {
-                StabilityPeriodActive = true;
-                b_inGame = true;
-                f_stabilityTimer = 0.0f;
-
                 IsMultiplayer = (Resources.FindObjectsOfTypeAll<MultiplayerController>().LastOrDefault() != null);
                 if (IsMultiplayer)
                 {
@@ -34,13 +30,20 @@ namespace AutoPauseStealth
 
                 // LastOrDefault() because BeatSaber don't know how to clean and keep every objects created per song play ... 
                 // Lazy fix => LastOrDefault() should assure to grab SinglePlayer related objects ...
-                ScoreController = Resources.FindObjectsOfTypeAll<ScoreController>().LastOrDefault(); 
+                // Note : Counter++ setting page load a """level""" (but without any ScoreController)
+                ScoreController = Resources.FindObjectsOfTypeAll<ScoreController>().LastOrDefault();
                 if (ScoreController == null)
-                    Logger.log?.Error("Couldn't find ScoreController object");
+                {
+                    Logger.log?.Warn("Couldn't find ScoreController object, probably not a vanilla GameCore scene");
+                    return;
+                }
 
                 SongController = Resources.FindObjectsOfTypeAll<SongController>().LastOrDefault();
                 if (SongController == null)
-                    Logger.log?.Error("Couldn't find SongController object");
+                {
+                    Logger.log?.Warn("Couldn't find SongController object, probably not a vanilla GameCore scene");
+                    return;
+                }
 
                 RestartController = Resources.FindObjectsOfTypeAll<StandardLevelRestartController>().LastOrDefault();
                 if (RestartController == null)
@@ -50,9 +53,16 @@ namespace AutoPauseStealth
                     {
                         RestartController = Resources.FindObjectsOfTypeAll<TutorialRestartController>().LastOrDefault();
                         if (RestartController == null)
-                            Logger.log?.Error("Couldn't find RestartController object");
+                        {
+                            Logger.log?.Warn("Couldn't find RestartController object, probably not a vanilla GameCore scene");
+                            return;
+                        }
                     }
                 }
+
+                StabilityPeriodActive = true;
+                b_inGame = true;
+                f_stabilityTimer = 0.0f;
 
                 Invoke("StopStabilityCheckPeriod", PluginSettings.Instance.MaxWaitingTime);
             }
