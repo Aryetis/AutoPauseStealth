@@ -14,7 +14,7 @@ namespace AutoPauseStealth
 
         public void OnActiveSceneChanged(UnityEngine.SceneManagement.Scene prevScene, UnityEngine.SceneManagement.Scene nextScene)
         {
-            Logger.log?.Debug($"{name}: LoadingScene({nextScene.name} : {nextScene.path})");
+            //Logger.log?.Debug($"{name}: LoadingScene({nextScene.name} : {nextScene.path})");
 
             if (StabilityPeriodActive) // because of fast restart/exit combined with long StabilityDurationCheck
                 CancelInvoke("StopStabilityCheckPeriod"); // Cancel previous session's StopStabilityCheckPeriod
@@ -80,8 +80,6 @@ namespace AutoPauseStealth
                 CancelInvoke("StopStabilityCheckPeriod");
             }
         }
-
-
 
         private void Awake()
         {

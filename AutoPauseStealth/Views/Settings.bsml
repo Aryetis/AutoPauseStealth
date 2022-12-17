@@ -5,7 +5,12 @@
 	<horizontal horizontal-fit="PreferredSize">
 		<slider-setting apply-on-change="true" value="fpsThresold" text="Desired Minimal FPS"
 						hover-hint="FPS value to reach before starting the song"
-						min="70" max="150" increment="5"></slider-setting>
+						min="55" max="150" increment="5"></slider-setting>
+	</horizontal>
+	<horizontal horizontal-fit="PreferredSize">
+		<checkbox-setting apply-on-change="true" value="DetectFpsThresoldOnStartup" text="AutoDetect Minimal FPS on startup"
+							hover-hint="Automatically detect 'Desired Minimal FPS' on startup"
+						></checkbox-setting>
 	</horizontal>
 	<horizontal horizontal-fit="PreferredSize">
 		<slider-setting apply-on-change="true" value="stabilityDurationCheck" text="FPS Stability Check Duration"

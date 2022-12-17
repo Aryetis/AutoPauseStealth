@@ -1,5 +1,7 @@
 ﻿using BeatSaberMarkupLanguage.Attributes;
+using IPA.Config.Data;
 using IPA.Config.Stores;
+using System;
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo(GeneratedStore.AssemblyVisibilityTarget)]
@@ -14,15 +16,16 @@ namespace AutoPauseStealth
             float hrmFrameRate = UnityEngine.XR.XRDevice.refreshRate;
             if (hrmFrameRate == 0.0f)
             {
-                Logger.log?.Error("Couldn't get HRM FrameRate, assuming it's 80 fps");
+                Logger.log?.Error("Couldn't get HRM FrameRate, assuming it's 80 fps => setting minimal fps to 75");
                 hrmFrameRate = 80.0f;
             }
-            return UnityEngine.Mathf.Round(hrmFrameRate) - 5.0f;
+
+            return UnityEngine.Mathf.Round(UnityEngine.Mathf.Round(hrmFrameRate) / 5.0f) * 5 - 5.0f; // round to low 5.. then remove 5 again just in case eg : 72fps for pico4 with VD
         }
 
         public void Awake() // Non Unity
         {
-            if (FpsThresold == 0.0f)
+            if (FpsThresold == 0.0f || DetectFpsThresoldOnStartup)
                 FpsThresold = DetermineMinFPSSub();
             RecommendedFpsThresold = "Recommended Min FPS value for your headset is " + DetermineMinFPSSub();
         }
@@ -41,5 +44,8 @@ namespace AutoPauseStealth
 
         [UIValue("RecommendedFpsThresold")]
         public string RecommendedFpsThresold;
+
+        [UIValue("DetectFpsThresoldOnStartup")]
+        public bool DetectFpsThresoldOnStartup { get; set; } = true;
     }
 }
