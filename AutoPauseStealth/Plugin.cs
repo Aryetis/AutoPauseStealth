@@ -28,7 +28,6 @@ namespace AutoPauseStealth
             Logger.log.Debug("Logger initialized.");
 
             PluginSettings.Instance = conf.Generated<PluginSettings>();
-            PluginSettings.Instance.Awake();
         }
 
         #region Disableable

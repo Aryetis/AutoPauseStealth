@@ -105,10 +105,13 @@ namespace AutoPauseStealth
 
         private void StopStabilityCheckPeriod() // In ideal times, shouldn't be called / should be canceled
         {
-            Logger.log?.Info($"StabilityCheckPeriod over, resuming game");
+            Logger.log?.Debug($"StabilityCheckPeriod over, resuming game");
             StabilityPeriodActive = false;
             if (PluginSettings.Instance.ReloadOnFailStab)
+            {
+                Logger.log?.Debug($"fps too low for more than "+ PluginSettings.Instance.MaxWaitingTime + "s => RestartLevel()");
                 RestartController.RestartLevel();
+            }
             else
             {
                 ScoreController.enabled = true;
@@ -135,10 +138,7 @@ namespace AutoPauseStealth
                     }
                 }
                 else
-                {
                     f_stabilityTimer = 0.0f;
-                    Logger.log?.Debug($"Fps dipping below threshold");
-                }
             }
         }
 
