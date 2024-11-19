@@ -34,15 +34,20 @@ namespace AutoPauseStealth
         [OnEnable]
         public void OnEnable()
         {
-            BSMLSettings.instance.AddSettingsMenu("AutoPauseStealth", "AutoPauseStealth.Views.settings.bsml", PluginSettings.Instance);
+            BeatSaberMarkupLanguage.Util.MainMenuAwaiter.MainMenuInitializing += OnMainMenuInit;
             new GameObject("AutoPauseStealthController").AddComponent<AutoPauseStealthController>();
             ApplyHarmonyPatches();
+        }
+
+        public void OnMainMenuInit()
+        {
+            BSMLSettings.Instance.AddSettingsMenu("AutoPauseStealth", "AutoPauseStealth.Views.settings.bsml", PluginSettings.Instance);
         }
 
         [OnDisable]
         public void OnDisable()
         {
-            BSMLSettings.instance.RemoveSettingsMenu(PluginSettings.Instance);
+            BSMLSettings.Instance.RemoveSettingsMenu(PluginSettings.Instance);
             if (PluginController != null)
                 GameObject.Destroy(PluginController);
             RemoveHarmonyPatches();
